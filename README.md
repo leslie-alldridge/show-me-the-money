@@ -15,11 +15,11 @@ The intended effect of this App is to make meeting attendees aware of how much t
 ### MVP
 
 As a user:
-  * I want to register for the App under my name, and state my hourly wage
-  * I want to start a new meeting, and add all the meeting members. (MVP: Add member names and wages manually)
+  * I want to register for the App under my name, and state my hourly wage DONE
+  * I want to start a new meeting, and add all the meeting members. (MVP: Add member names and wages manually) DONE
   * I want to start my created meeting, and see a ($) cost tracker display the current meeting cost every second
   * I want to be able to save a meeting's cost, attendess, duration and date/time when it is finished for later viewing
-  * I want to be able to view previous meetings in date/time order, and see more information about a past meeting.
+  * I want to be able to view previous meetings in date/time order, and see more information about a past meeting. DONE
   * I want to see a graph of meeting costs over time
 
 ### Stretch
