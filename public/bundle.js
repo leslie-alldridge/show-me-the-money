@@ -5531,6 +5531,16 @@ var Navbar = function (_React$Component) {
               "History"
             ),
             _react2.default.createElement(
+              _reactRouterDom.Link,
+              _defineProperty({
+                onClick: this.toggleHistory,
+                className: "navbar-item is-large",
+                id: "nav_history",
+                to: "/home"
+              }, "className", "navbar-item"),
+              "Home"
+            ),
+            _react2.default.createElement(
               "span",
               {
                 onClick: this.toggleBurger,
@@ -14426,9 +14436,9 @@ var _auth = __webpack_require__(146);
 
 var _auth2 = _interopRequireDefault(_auth);
 
-var _userRed = __webpack_require__(150);
+var _users = __webpack_require__(304);
 
-var _userRed2 = _interopRequireDefault(_userRed);
+var _users2 = _interopRequireDefault(_users);
 
 var _attendee = __webpack_require__(145);
 
@@ -14446,7 +14456,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = (0, _redux.combineReducers)({
   auth: _auth2.default,
-  userRed: _userRed2.default,
+  users: _users2.default,
   addAttendee: _attendee2.default,
   timer: _timer2.default,
   meetings: _meetings2.default,
@@ -15548,16 +15558,6 @@ var Nav = function (_React$Component) {
               "Help"
             ),
             _react2.default.createElement(
-              _reactRouterDom.Link,
-              _defineProperty({
-                onClick: this.toggleHistory,
-                className: "navbar-item is-large",
-                id: "nav_history",
-                to: "/history"
-              }, "className", "navbar-item"),
-              "History"
-            ),
-            _react2.default.createElement(
               "span",
               {
                 onClick: this.toggleBurger,
@@ -16067,6 +16067,8 @@ var _reactRedux = __webpack_require__(8);
 
 var _addAttendee2 = __webpack_require__(129);
 
+var _usersAPI = __webpack_require__(303);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -16074,20 +16076,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var users = [{
-  id: 1,
-  user_name: 'symesharr',
-  first_name: 'Harrison',
-  last_name: 'Symes',
-  hourly_wage: 300
-}, {
-  id: 2,
-  user_name: 'Jeff',
-  first_name: 'Harrison',
-  last_name: 'Symes',
-  hourly_wage: 300
-}];
 
 var UserList = function (_Component) {
   _inherits(UserList, _Component);
@@ -16099,33 +16087,41 @@ var UserList = function (_Component) {
   }
 
   _createClass(UserList, [{
-    key: 'render',
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.getAllUsers();
+    }
+  }, {
+    key: "render",
     value: function render() {
       var _this2 = this;
 
+      {
+        console.log(this.props.state);
+      }
       return _react2.default.createElement(
-        'div',
+        "div",
         null,
         _react2.default.createElement(
-          'h1',
+          "h1",
           null,
-          'userList'
+          "List of Available Users"
         ),
-        users.map(function (user) {
+        this.props.state.response.map(function (user) {
           return _react2.default.createElement(
-            'div',
+            "div",
             null,
             _react2.default.createElement(_User2.default, { person: user }),
             _react2.default.createElement(
-              'button',
+              "button",
               {
                 onClick: function onClick() {
                   return _this2.props.addAttendee(user);
                 },
-                id: '',
-                className: ''
+                id: "",
+                className: ""
               },
-              'Add'
+              "Add"
             )
           );
         })
@@ -16136,15 +16132,24 @@ var UserList = function (_Component) {
   return UserList;
 }(_react.Component);
 
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+function mapStateToProps(state) {
+  return {
+    state: state.users
+  };
+}
+
+function mapDispatchToProps(dispatch) {
   return {
     addAttendee: function addAttendee(user) {
-      return dispatch((0, _addAttendee2.addAttendee)(user));
+      dispatch((0, _addAttendee2.addAttendee)(user));
+    },
+    getAllUsers: function getAllUsers() {
+      dispatch((0, _usersAPI.getAllUsers)());
     }
   };
-};
+}
 
-exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(UserList);
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(UserList);
 
 /***/ }),
 /* 144 */
@@ -16413,31 +16418,7 @@ function timer() {
 }
 
 /***/ }),
-/* 150 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = userRed;
-function userRed() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-  var action = arguments[1];
-
-  switch (action.type) {
-    case "SET_ALL_USERS":
-      return {
-        totalUsers: action.allUsers
-      };
-    default:
-      return state;
-  }
-}
-
-/***/ }),
+/* 150 */,
 /* 151 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -32156,6 +32137,87 @@ module.exports = function(originalModule) {
 	return module;
 };
 
+
+/***/ }),
+/* 303 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getAllUsers = getAllUsers;
+
+var _api = __webpack_require__(74);
+
+var _api2 = _interopRequireDefault(_api);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function fetchAllUsers() {
+  return {
+    type: "ALL_USERS_REQ",
+    isFetching: true,
+    isAuthenticated: true
+  };
+}
+
+function recAllUsers(response) {
+  return {
+    type: "ALL_USERS_DONE",
+    isFetching: false,
+    isAuthenticated: true,
+    response: response.body
+  };
+}
+
+function getAllUsers() {
+  return function (dispatch) {
+    dispatch(fetchAllUsers());
+    (0, _api2.default)("get", "/users").then(function (response) {
+      if (!response.ok) {} else {
+        console.log(response);
+
+        dispatch(recAllUsers(response));
+      }
+    });
+  };
+}
+
+/***/ }),
+/* 304 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = users;
+function users() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { response: [] };
+  var action = arguments[1];
+
+  switch (action.type) {
+    case "ALL_USERS_REQ":
+      return {
+        response: state.response,
+        isFetching: true,
+        isAuthenticated: true
+      };
+    case "ALL_USERS_DONE":
+      return {
+        isFetching: false,
+        isAuthenticated: true,
+        response: action.response
+      };
+    default:
+      return state;
+  }
+}
 
 /***/ })
 /******/ ]);

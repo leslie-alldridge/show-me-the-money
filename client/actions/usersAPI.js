@@ -1,14 +1,32 @@
-// import request from 'superagent'
-// import data from 
+import request from "../utils/api";
 
-// export function getUser (users) {
-//   return (dispatch) => {
-//     request
-//       .get('/')
-//       .then(res => {
-//         const allUsers = (req.body)
-//         dispatch(setUsers(allUsers))
-//       })
-//       .catch(err => dispatch(loginError(err.response.body.message)))
-//   }
-// }
+function fetchAllUsers() {
+  return {
+    type: "ALL_USERS_REQ",
+    isFetching: true,
+    isAuthenticated: true
+  };
+}
+
+function recAllUsers(response) {
+  return {
+    type: "ALL_USERS_DONE",
+    isFetching: false,
+    isAuthenticated: true,
+    response: response.body
+  };
+}
+
+export function getAllUsers() {
+  return function(dispatch) {
+    dispatch(fetchAllUsers());
+    request("get", "/users").then(response => {
+      if (!response.ok) {
+      } else {
+        console.log(response);
+
+        dispatch(recAllUsers(response));
+      }
+    });
+  };
+}

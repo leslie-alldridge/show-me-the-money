@@ -30,15 +30,7 @@ class Nav extends React.Component {
             >
               Help
             </Link>
-            <Link
-              onClick={this.toggleHistory}
-              className="navbar-item is-large"
-              id="nav_history"
-              to="/history"
-              className="navbar-item"
-            >
-              History
-            </Link>
+
             <span
               onClick={this.toggleBurger}
               className={`navbar-burger burger ${

@@ -1,36 +1,26 @@
-import User from './User';
+import User from "./User";
 
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { addAttendee } from '../actions/addAttendee';
-
-const users = [
-  {
-    id: 1,
-    user_name: 'symesharr',
-    first_name: 'Harrison',
-    last_name: 'Symes',
-    hourly_wage: 300
-  },
-  {
-    id: 2,
-    user_name: 'Jeff',
-    first_name: 'Harrison',
-    last_name: 'Symes',
-    hourly_wage: 300
-  }
-];
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { addAttendee } from "../actions/addAttendee";
+import { getAllUsers } from "../actions/usersAPI";
 
 class UserList extends Component {
   constructor(props) {
     super(props);
   }
+  componentDidMount() {
+    this.props.getAllUsers();
+  }
   render() {
+    {
+      console.log(this.props.state);
+    }
     return (
       <div>
-        <h1>userList</h1>
+        <h1>List of Available Users</h1>
 
-        {users.map(user => {
+        {this.props.state.response.map(user => {
           return (
             <div>
               <User person={user} />
@@ -49,13 +39,24 @@ class UserList extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
+function mapStateToProps(state) {
   return {
-    addAttendee: user => dispatch(addAttendee(user))
+    state: state.users
   };
-};
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    addAttendee: user => {
+      dispatch(addAttendee(user));
+    },
+    getAllUsers: () => {
+      dispatch(getAllUsers());
+    }
+  };
+}
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(UserList);

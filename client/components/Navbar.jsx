@@ -39,11 +39,20 @@ class Navbar extends React.Component {
             >
               History
             </Link>
+            <Link
+              onClick={this.toggleHistory}
+              className="navbar-item is-large"
+              id="nav_history"
+              to="/home"
+              className="navbar-item"
+            >
+              Home
+            </Link>
             <span
               onClick={this.toggleBurger}
               className={`navbar-burger burger ${
                 showBurger ? "is-active" : ""
-                }`}
+              }`}
               data-target="navbarMenuHeroA"
             >
               <span />
@@ -59,25 +68,25 @@ class Navbar extends React.Component {
                 {auth.isAuthenticated ? (
                   <Link to="/" className="navbar-item" onClick={() => logout()}>
                     Logout
-                </Link>
-                ) : (
-                    [
-                      <Link
-                        onClick={this.toggleBurger}
-                        className="navbar-item is-large"
-                        to="/login"
-                      >
-                        Login
-                  </Link>,
-                      <Link
-                        onClick={this.toggleBurger}
-                        className="navbar-item"
-                        to="/register"
-                      >
-                        Register
                   </Link>
-                    ]
-                  )}
+                ) : (
+                  [
+                    <Link
+                      onClick={this.toggleBurger}
+                      className="navbar-item is-large"
+                      to="/login"
+                    >
+                      Login
+                    </Link>,
+                    <Link
+                      onClick={this.toggleBurger}
+                      className="navbar-item"
+                      to="/register"
+                    >
+                      Register
+                    </Link>
+                  ]
+                )}
               </div>
             </div>
           </div>
