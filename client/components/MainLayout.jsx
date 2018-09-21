@@ -1,38 +1,41 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import UserList from './UserList'
-import AttendeesList from './AttendeesList'
-// import MeetingUsersList from './MeetingUsersList'
-import TimerBox from './TimerBox'
-
+import React from "react";
+import { connect } from "react-redux";
+import UserList from "./UserList";
+import AttendeesList from "./AttendeesList";
+import Navbar from "./Navbar";
 
 // Main Layout page
 
 function MainLayout(props) {
-  
   return (
-  
-  <div className="container">
-    <h2 className="title is-2">Main Page</h2>
-    <div className= 'bigboi'>
-    <div className="main_LeftSideBar">
-    LEFT<UserList />
-    </div>
-    <div className="right_mainLayout_container">
-      
-      <AttendeesList />
-      {/* RIGHT    
-      <TimerBox /> */}
-      {/* <MeetingUsersList /> */}
+    <div>
+      <div id="history_nav">
+        <div id="Help_content" class="columns">
+          <Navbar />
+        </div>
+      </div>
+      <section id="hero_history" className="hero is-primary">
+        <div id="hero_body" className="hero-body">
+          <div className="container">
+            <h1 className="title">Set up a meeting</h1>
+            <h2 className="subtitle">See live meeting cost and duration</h2>
+          </div>
+        </div>
+      </section>
 
-      {/* <div className="main_stats">
-    </div> */}
-      
+      <div id="history_container" className="container">
+        <div class="slide-fwd-center" id="h_left">
+          <h1 id="title_history" className="subtitle">
+            Meeting Members
+          </h1>
+          <UserList />
+        </div>
+        <div id="h_right">
+          <AttendeesList />
+        </div>
+      </div>
     </div>
-
-</div>
-  </div>
-  )
+  );
 }
 
-export default connect()(MainLayout)
+export default connect()(MainLayout);

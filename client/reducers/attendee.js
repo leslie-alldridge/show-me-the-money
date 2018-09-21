@@ -1,9 +1,14 @@
 const addAttendee = (state = [], action) => {
   switch (action.type) {
-    case 'ADD_USER':
-      //adding the whole action for now as an example - currently being worked on
-      return [...state, action];
-
+    case "ADD_USER":
+      const index1 = state.findIndex(
+        person => person.user.id === action.user.id
+      );
+      if (index1 > -1) {
+        return [...state];
+      } else {
+        return [...state, action];
+      }
     default:
       return state;
   }

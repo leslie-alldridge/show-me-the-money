@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
 
+import timer from "./timer";
 import auth from "./auth";
 import userRed from "./userRed";
 import addAttendee from "./attendee";
@@ -10,6 +11,7 @@ export default combineReducers({
   auth,
   userRed,
   addAttendee,
+  timer,
   meetings,
   singlemeeting
 });
