@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import UserList from "./UserList";
 import AttendeesList from "./AttendeesList";
 import Navbar from "./Navbar";
+import TimerBox from "./TimerBox";
 
 class MainLayout extends React.Component {
   constructor(props) {
@@ -50,6 +51,7 @@ class MainLayout extends React.Component {
             </div>
           </div>
         )}
+        {this.state.timer && <TimerBox />}
       </div>
     );
   }
