@@ -90,11 +90,12 @@ class History extends React.Component {
           </div>
         </div>
         <a onClick={this.toggleChart}>click me to see chart</a>
-        {this.state.data.length >= 1 && (
-          <Sparklines data={this.state.data[0]}>
-            <SparklinesLine color="blue" />
-          </Sparklines>
-        )}
+        {this.state.data.length >= 1 &&
+          this.state.showChart && (
+            <Sparklines data={this.state.data[0]}>
+              <SparklinesLine color="blue" />
+            </Sparklines>
+          )}
         {console.log(this.state.data[0])}
       </div>
     );

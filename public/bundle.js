@@ -35224,7 +35224,7 @@ var History = function (_React$Component) {
           { onClick: this.toggleChart },
           "click me to see chart"
         ),
-        this.state.data.length >= 1 && _react2.default.createElement(
+        this.state.data.length >= 1 && this.state.showChart && _react2.default.createElement(
           _reactSparklines.Sparklines,
           { data: this.state.data[0] },
           _react2.default.createElement(_reactSparklines.SparklinesLine, { color: "blue" })
