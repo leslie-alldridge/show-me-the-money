@@ -82,7 +82,6 @@ export function saveMeeting(cost, name, attendees) {
     };
     return request("post", "/meetings", obj).then(response => {
       if (!response.ok) {
-        console.log("broken");
       } else {
         dispatch(saveRes());
       }

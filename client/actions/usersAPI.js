@@ -23,8 +23,6 @@ export function getAllUsers() {
     request("get", "/users").then(response => {
       if (!response.ok) {
       } else {
-        console.log(response);
-
         dispatch(recAllUsers(response));
       }
     });

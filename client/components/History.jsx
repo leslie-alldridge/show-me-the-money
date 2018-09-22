@@ -39,16 +39,12 @@ class History extends React.Component {
   toggleChart() {
     let data = this.props.meetings.map(meeting => {
       return meeting.map(meet => {
-        //console.log(meet);
-
         return meet.cost;
       });
     });
-    //console.log(data);
     this.setState({
       data: [...data]
     });
-    console.log(this.state);
 
     this.setState(prevState => ({
       showChart: !prevState.showChart

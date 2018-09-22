@@ -7995,9 +7995,7 @@ function saveMeeting(cost, name, attendees) {
       attendees: attendees
     };
     return (0, _api2.default)("post", "/meetings", obj).then(function (response) {
-      if (!response.ok) {
-        console.log("broken");
-      } else {
+      if (!response.ok) {} else {
         dispatch(saveRes());
       }
     });
@@ -34390,8 +34388,6 @@ Object.defineProperty(exports, "__esModule", {
 // import request from "../utils/api";
 
 var addAttendee = exports.addAttendee = function addAttendee(user) {
-  console.log(user);
-
   return {
     type: "ADD_USER",
     user: user,
@@ -34473,8 +34469,6 @@ function getAllUsers() {
     dispatch(fetchAllUsers());
     (0, _api2.default)("get", "/users").then(function (response) {
       if (!response.ok) {} else {
-        console.log(response);
-
         dispatch(recAllUsers(response));
       }
     });
@@ -34555,6 +34549,7 @@ var AttendeeList = function (_React$Component) {
   }, {
     key: "meetingStart",
     value: function meetingStart() {
+      this.props.startTimer();
       var cost = this.state.meetingCost.reduce(function (a, b) {
         return a + b;
       }, 0);
@@ -34564,9 +34559,6 @@ var AttendeeList = function (_React$Component) {
         return data.user;
       });
       this.props.saveMeeting(cost, name, attendees);
-      console.log(cost);
-      console.log(name);
-      console.log(attendees);
     }
   }, {
     key: "render",
@@ -35142,16 +35134,12 @@ var History = function (_React$Component) {
     value: function toggleChart() {
       var data = this.props.meetings.map(function (meeting) {
         return meeting.map(function (meet) {
-          //console.log(meet);
-
           return meet.cost;
         });
       });
-      //console.log(data);
       this.setState({
         data: [].concat(_toConsumableArray(data))
       });
-      console.log(this.state);
 
       this.setState(function (prevState) {
         return {
@@ -35417,6 +35405,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
@@ -35437,62 +35427,97 @@ var _Navbar2 = _interopRequireDefault(_Navbar);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function MainLayout(props) {
-  return _react2.default.createElement(
-    "div",
-    null,
-    _react2.default.createElement(
-      "div",
-      { id: "history_nav" },
-      _react2.default.createElement(
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var MainLayout = function (_React$Component) {
+  _inherits(MainLayout, _React$Component);
+
+  function MainLayout(props) {
+    _classCallCheck(this, MainLayout);
+
+    var _this = _possibleConstructorReturn(this, (MainLayout.__proto__ || Object.getPrototypeOf(MainLayout)).call(this, props));
+
+    _this.state = {
+      timer: false
+    };
+    _this.startTimer = _this.startTimer.bind(_this);
+    return _this;
+  }
+
+  _createClass(MainLayout, [{
+    key: "startTimer",
+    value: function startTimer() {
+      console.log("timer is going nuts");
+      this.setState({
+        timer: true
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
         "div",
-        { id: "Help_content", "class": "columns" },
-        _react2.default.createElement(_Navbar2.default, null)
-      )
-    ),
-    _react2.default.createElement(
-      "section",
-      { id: "hero_history", className: "hero is-primary" },
-      _react2.default.createElement(
-        "div",
-        { id: "hero_body", className: "hero-body" },
+        null,
         _react2.default.createElement(
           "div",
-          { className: "container" },
+          { id: "history_nav" },
           _react2.default.createElement(
-            "h1",
-            { className: "title" },
-            "Set up a meeting"
+            "div",
+            { id: "Help_content", "class": "columns" },
+            _react2.default.createElement(_Navbar2.default, null)
+          )
+        ),
+        _react2.default.createElement(
+          "section",
+          { id: "hero_history", className: "hero is-primary" },
+          _react2.default.createElement(
+            "div",
+            { id: "hero_body", className: "hero-body" },
+            _react2.default.createElement(
+              "div",
+              { className: "container" },
+              _react2.default.createElement(
+                "h1",
+                { className: "title" },
+                "Set up a meeting"
+              ),
+              _react2.default.createElement(
+                "h2",
+                { className: "subtitle" },
+                "See live meeting cost and duration"
+              )
+            )
+          )
+        ),
+        !this.state.timer && _react2.default.createElement(
+          "div",
+          { id: "history_container", className: "container" },
+          _react2.default.createElement(
+            "div",
+            { className: "slide-fwd-center", id: "h_left" },
+            _react2.default.createElement(
+              "h1",
+              { id: "title_history", className: "subtitle" },
+              "Meeting Members"
+            ),
+            _react2.default.createElement(_UserList2.default, null)
           ),
           _react2.default.createElement(
-            "h2",
-            { className: "subtitle" },
-            "See live meeting cost and duration"
+            "div",
+            { id: "h_right" },
+            _react2.default.createElement(_AttendeesList2.default, { startTimer: this.startTimer })
           )
         )
-      )
-    ),
-    _react2.default.createElement(
-      "div",
-      { id: "history_container", className: "container" },
-      _react2.default.createElement(
-        "div",
-        { className: "slide-fwd-center", id: "h_left" },
-        _react2.default.createElement(
-          "h1",
-          { id: "title_history", className: "subtitle" },
-          "Meeting Members"
-        ),
-        _react2.default.createElement(_UserList2.default, null)
-      ),
-      _react2.default.createElement(
-        "div",
-        { id: "h_right" },
-        _react2.default.createElement(_AttendeesList2.default, null)
-      )
-    )
-  );
-}
+      );
+    }
+  }]);
+
+  return MainLayout;
+}(_react2.default.Component);
 
 exports.default = (0, _reactRedux.connect)()(MainLayout);
 

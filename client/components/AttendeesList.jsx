@@ -37,6 +37,7 @@ class AttendeeList extends React.Component {
   }
 
   meetingStart() {
+    this.props.startTimer();
     const cost = this.state.meetingCost.reduce(function(a, b) {
       return a + b;
     }, 0);
@@ -46,9 +47,6 @@ class AttendeeList extends React.Component {
       data => data.user
     );
     this.props.saveMeeting(cost, name, attendees);
-    console.log(cost);
-    console.log(name);
-    console.log(attendees);
   }
 
   render() {
