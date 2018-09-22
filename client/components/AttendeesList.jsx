@@ -1,23 +1,25 @@
 import React from "react";
-
 import { connect } from "react-redux";
+
+import { saveMeeting } from "../actions/meetings";
 
 class AttendeeList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      meetingName: "",
-      savedName: "",
-      meetingCost: []
+      meetingName: "Enter name here",
+      savedName: "Default Name",
+      meetingCost: [],
+      attendees: ""
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.calculateCost = this.calculateCost.bind(this);
+    this.meetingStart = this.meetingStart.bind(this);
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    console.log(this.state);
     this.setState({
       meetingName: ""
     });
@@ -32,7 +34,21 @@ class AttendeeList extends React.Component {
 
   calculateCost(cost) {
     this.state.meetingCost += cost;
-    console.log(this.state.meetingCost);
+  }
+
+  meetingStart() {
+    const cost = this.state.meetingCost.reduce(function(a, b) {
+      return a + b;
+    }, 0);
+    const name = this.state.savedName;
+
+    const attendees = this.props.displayAttendee.addAttendee.map(
+      data => data.user
+    );
+    this.props.saveMeeting(cost, name, attendees);
+    console.log(cost);
+    console.log(name);
+    console.log(attendees);
   }
 
   render() {
@@ -59,7 +75,6 @@ class AttendeeList extends React.Component {
           return (
             <p>
               {data.user.user_name} hourly rate: {data.user.hourly_wage}
-              {/* {this.calculateCost(data.user.hourly_wage)} */}
             </p>
           );
         })}
@@ -69,6 +84,7 @@ class AttendeeList extends React.Component {
             return a + b;
           }, 0)}
         </p>
+        <button onClick={this.meetingStart}>Start Meeting!</button>
       </div>
     );
   }
@@ -80,4 +96,15 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(AttendeeList);
+function mapDispatchToProps(dispatch) {
+  return {
+    saveMeeting: (cost, name, attendees) => {
+      dispatch(saveMeeting(cost, name, attendees));
+    }
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AttendeeList);

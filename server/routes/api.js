@@ -1,15 +1,15 @@
-var router = require('express').Router();
+var router = require("express").Router();
 
 var {
   getUserMeetingHistory,
   getMeetingInfo,
   saveMeeting,
   getAllMeetings
-} = require('../db/meetings');
+} = require("../db/meetings");
 
-let { getUsers } = require('../db/users');
+let { getUsers } = require("../db/users");
 
-router.get('/meetings/:id', getMeetings);
+router.get("/meetings/:id", getMeetings);
 
 function getMeetings(req, res, next) {
   getUserMeetingHistory(req.params.id).then(data => {
@@ -22,7 +22,7 @@ function getMeetings(req, res, next) {
   });
 }
 
-router.get('/allmeetings', getAllMeetingsAPI);
+router.get("/allmeetings", getAllMeetingsAPI);
 
 function getAllMeetingsAPI(req, res, next) {
   getAllMeetings().then(data => {
@@ -30,15 +30,26 @@ function getAllMeetingsAPI(req, res, next) {
   });
 }
 
-router.post('/meetings', saveMeetingAPI);
+router.post("/meetings", saveMeetingAPI);
 
 function saveMeetingAPI(req, res, next) {
-  saveMeeting(req.body).then(data => {
+  console.log(req.body);
+  // let attendeesTotal = req.body.attendees.length;
+  let meeting = {
+    meetingName: req.body.name,
+    time: 2,
+    totalMeetingTimeSeconds: 2000,
+    attendees: req.body.attendees,
+    totalCostOfMeeting: req.body.cost
+  };
+  saveMeeting(meeting).then(data => {
+    console.log(data);
+
     res.json(data);
   });
 }
 
-router.get('/meetings/:id/users', getMeetingAttendees);
+router.get("/meetings/:id/users", getMeetingAttendees);
 
 function getMeetingAttendees(req, res, next) {
   getMeetingInfo(req.params.id).then(info => {
@@ -46,7 +57,7 @@ function getMeetingAttendees(req, res, next) {
   });
 }
 
-router.get('/users', getUsersAPI);
+router.get("/users", getUsersAPI);
 
 function getUsersAPI(req, res, next) {
   getUsers().then(users => {

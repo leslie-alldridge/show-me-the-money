@@ -30,7 +30,6 @@ class Nav extends React.Component {
             >
               Help
             </Link>
-
             <span
               onClick={this.toggleBurger}
               className={`navbar-burger burger ${

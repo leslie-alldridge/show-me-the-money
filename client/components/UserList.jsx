@@ -1,9 +1,8 @@
-import User from "./User";
-
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { addAttendee } from "../actions/addAttendee";
 import { getAllUsers } from "../actions/usersAPI";
+import User from "./User";
 
 class UserList extends Component {
   constructor(props) {
@@ -13,9 +12,6 @@ class UserList extends Component {
     this.props.getAllUsers();
   }
   render() {
-    {
-      console.log(this.props.state);
-    }
     return (
       <div>
         <h1>List of Available Users</h1>

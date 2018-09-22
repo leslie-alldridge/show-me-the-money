@@ -50,7 +50,7 @@ function saveMeeting(meeting) {
       meeting.id = id[0];
       let arr = [];
       meeting.attendees.forEach(attendee => {
-        arr.push(createAttendee(attendee.userId, id[0]));
+        arr.push(createAttendee(attendee.id, id[0]));
       });
       return Promise.all(arr).then(() => {
         return meeting;

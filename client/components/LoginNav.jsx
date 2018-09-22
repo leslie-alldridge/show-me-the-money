@@ -13,7 +13,6 @@ class LoginNav extends React.Component {
             </video>
           </div>
         </section>
-
         <div id="App_Hero" className="hero is-small is-primary">
           <div className="hero-body has-text-centered">
             <Link to="/" className="">

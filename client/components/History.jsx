@@ -18,7 +18,6 @@ class History extends React.Component {
   }
 
   componentDidMount() {
-
     this.props.allMeetings();
   }
 
@@ -29,7 +28,6 @@ class History extends React.Component {
     this.setState(prevState => ({
       viewDetails: !prevState.viewDetails
     }));
-    //this.props.getMeeting(this.state.meetingID);
   }
 
   render() {

@@ -4,8 +4,6 @@ import UserList from "./UserList";
 import AttendeesList from "./AttendeesList";
 import Navbar from "./Navbar";
 
-// Main Layout page
-
 function MainLayout(props) {
   return (
     <div>
@@ -24,7 +22,7 @@ function MainLayout(props) {
       </section>
 
       <div id="history_container" className="container">
-        <div class="slide-fwd-center" id="h_left">
+        <div className="slide-fwd-center" id="h_left">
           <h1 id="title_history" className="subtitle">
             Meeting Members
           </h1>
