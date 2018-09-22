@@ -4,6 +4,7 @@ import HistoricMeetings from "./HistoricMeetings";
 import HistoricMeeting from "./HistoricMeeting";
 import TheMeetingDetails from "./TheMeetingDetails";
 import { connect } from "react-redux";
+import { Sparklines, SparklinesLine } from "react-sparklines";
 
 import { allMeetings, getMeeting } from "../actions/meetings";
 
@@ -12,14 +13,19 @@ class History extends React.Component {
     super(props);
     this.state = {
       viewDetails: true,
-      meetingID: ""
+      meetingID: "",
+      showChart: false,
+      data: ""
     };
     this.handleClick = this.handleClick.bind(this);
+    this.toggleChart = this.toggleChart.bind(this);
   }
 
   componentDidMount() {
     this.props.allMeetings();
   }
+
+  componentWillMount() {}
 
   handleClick(e) {
     this.setState({
@@ -27,6 +33,25 @@ class History extends React.Component {
     });
     this.setState(prevState => ({
       viewDetails: !prevState.viewDetails
+    }));
+  }
+
+  toggleChart() {
+    let data = this.props.meetings.map(meeting => {
+      return meeting.map(meet => {
+        //console.log(meet);
+
+        return meet.cost;
+      });
+    });
+    //console.log(data);
+    this.setState({
+      data: [...data]
+    });
+    console.log(this.state);
+
+    this.setState(prevState => ({
+      showChart: !prevState.showChart
     }));
   }
 
@@ -64,6 +89,13 @@ class History extends React.Component {
             )}
           </div>
         </div>
+        <a onClick={this.toggleChart}>click me to see chart</a>
+        {this.state.data.length >= 1 && (
+          <Sparklines data={this.state.data[0]}>
+            <SparklinesLine color="blue" />
+          </Sparklines>
+        )}
+        {console.log(this.state.data[0])}
       </div>
     );
   }

@@ -33,8 +33,6 @@ function getAllMeetingsAPI(req, res, next) {
 router.post("/meetings", saveMeetingAPI);
 
 function saveMeetingAPI(req, res, next) {
-  console.log(req.body);
-  // let attendeesTotal = req.body.attendees.length;
   let meeting = {
     meetingName: req.body.name,
     time: 2,
@@ -43,8 +41,6 @@ function saveMeetingAPI(req, res, next) {
     totalCostOfMeeting: req.body.cost
   };
   saveMeeting(meeting).then(data => {
-    console.log(data);
-
     res.json(data);
   });
 }

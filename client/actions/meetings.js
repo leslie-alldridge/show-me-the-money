@@ -74,7 +74,7 @@ export function getMeeting(id) {
 
 export function saveMeeting(cost, name, attendees) {
   return dispatch => {
-    dispatch(meetingReq());
+    dispatch(saveReq());
     let obj = {
       cost: cost,
       name: name,
@@ -82,11 +82,11 @@ export function saveMeeting(cost, name, attendees) {
     };
     return request("post", "/meetings", obj).then(response => {
       if (!response.ok) {
+        console.log("broken");
       } else {
-        //dispatch(meetingRes(response.body.attendees));
+        dispatch(saveRes());
       }
     });
-    //.catch(err => dispatch(loginError(err.response.body.message)));
   };
 }
 
@@ -98,10 +98,10 @@ export function saveReq() {
   };
 }
 
-export function saveRes(response) {
+export function saveRes() {
   return {
     type: "SAVE_MEETING_RES",
     isFetching: false,
-    meeting: response
+    isAuthenticated: true
   };
 }
