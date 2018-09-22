@@ -4,21 +4,45 @@ import UserList from "./UserList";
 import AttendeesList from "./AttendeesList";
 import Navbar from "./Navbar";
 import TimerBox from "./TimerBox";
+import { saveMeeting } from "../actions/meetings";
 
 class MainLayout extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      timer: false
+      timer: false,
+      costPerHour: 0,
+      meetingName: "",
+      attendees: 0
     };
     this.startTimer = this.startTimer.bind(this);
+    this.test = this.test.bind(this);
+    this.saveMeeting = this.saveMeeting.bind(this);
   }
 
   startTimer() {
-    console.log("timer is going nuts");
     this.setState({
       timer: true
     });
+  }
+
+  test(a, b, c) {
+    this.setState({
+      costPerHour: a,
+      meetingName: b,
+      attendees: c
+    });
+  }
+
+  saveMeeting(cost, seconds) {
+    let time = Date.now();
+    this.props.saveIt(
+      this.state.meetingName,
+      time,
+      seconds,
+      this.state.attendees,
+      cost
+    );
   }
 
   render() {
@@ -47,14 +71,31 @@ class MainLayout extends React.Component {
               <UserList />
             </div>
             <div id="h_right">
-              <AttendeesList startTimer={this.startTimer} />
+              <AttendeesList test={this.test} startTimer={this.startTimer} />
             </div>
           </div>
         )}
-        {this.state.timer && <TimerBox />}
+        {this.state.timer && <TimerBox save={this.saveMeeting} />}
       </div>
     );
   }
 }
 
-export default connect()(MainLayout);
+function mapStateToProps(state) {
+  return {
+    state: state.auth
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    saveIt: (meetingname, time, seconds, attendees, cost) => {
+      dispatch(saveMeeting(meetingname, time, seconds, attendees, cost));
+    }
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MainLayout);

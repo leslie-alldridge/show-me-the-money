@@ -2,7 +2,6 @@ import React from "react";
 import Control from "./Control";
 import { connect } from "react-redux";
 
-// Resets the timer on click and clear the setInterval
 const Reset = function(props) {
   return (
     <button onClick={props.onClickReset} className="reset">
@@ -14,8 +13,6 @@ const Reset = function(props) {
 const Timer = function(props) {
   return <h1>{props.time}</h1>;
 };
-
-// Pause/ play button
 
 class TimerBox extends React.Component {
   constructor(props) {
@@ -41,8 +38,6 @@ class TimerBox extends React.Component {
     this.setState({ paused: false });
 
     let currentCost = this.props.state.map(user => {
-      console.log(user);
-
       return user.user.hourly_wage;
     });
 
@@ -51,7 +46,6 @@ class TimerBox extends React.Component {
         return a + b;
       }, 0)
     });
-    console.log(this.state);
   };
 
   stopTimer = () => {
@@ -66,7 +60,7 @@ class TimerBox extends React.Component {
 
   meetingDone() {
     this.stopTimer();
-    console.log("meeting completed!");
+    this.props.save(this.state.cost, this.state.timer);
   }
 
   render() {
@@ -97,5 +91,3 @@ export default connect(
   mapStateToProps,
   null
 )(TimerBox);
-
-// ReactDOM.render(<App />, mountNode);

@@ -35,8 +35,8 @@ router.post("/meetings", saveMeetingAPI);
 function saveMeetingAPI(req, res, next) {
   let meeting = {
     meetingName: req.body.name,
-    time: 2,
-    totalMeetingTimeSeconds: 2000,
+    time: req.body.time,
+    totalMeetingTimeSeconds: req.body.seconds,
     attendees: req.body.attendees,
     totalCostOfMeeting: req.body.cost
   };

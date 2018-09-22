@@ -92,7 +92,6 @@ class History extends React.Component {
               <SparklinesLine color="blue" />
             </Sparklines>
           )}
-        {console.log(this.state.data[0])}
       </div>
     );
   }

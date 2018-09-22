@@ -46,7 +46,7 @@ class AttendeeList extends React.Component {
     const attendees = this.props.displayAttendee.addAttendee.map(
       data => data.user
     );
-    this.props.saveMeeting(cost, name, attendees);
+    this.props.test(cost, name, attendees);
   }
 
   render() {

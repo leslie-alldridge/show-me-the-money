@@ -72,13 +72,15 @@ export function getMeeting(id) {
 
 //save a meeting
 
-export function saveMeeting(cost, name, attendees) {
+export function saveMeeting(meetingname, time, seconds, attendees, cost) {
   return dispatch => {
     dispatch(saveReq());
     let obj = {
-      cost: cost,
-      name: name,
-      attendees: attendees
+      name: meetingname,
+      time: time,
+      seconds: seconds,
+      attendees: attendees,
+      cost: cost
     };
     return request("post", "/meetings", obj).then(response => {
       if (!response.ok) {
